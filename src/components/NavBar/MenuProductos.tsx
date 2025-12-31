@@ -1,13 +1,15 @@
 import type React from "react";
 import type { ICategory } from "../../types/category";
+import { Link } from "react-router-dom";
 
 interface MenuProductosProps {
-  categories: ICategory[];
   visible: boolean;
+  onClose: () => void;
+  categories: ICategory[];
 }
 
-export const MenuProductos: React.FC<MenuProductosProps> = ({ 
-  categories, visible }) => {
+export const MenuProductos: React.FC<MenuProductosProps> = ({ visible, onClose, categories }) => {
+
   return (
     <div className={`transition-all duration-500 md:duration-300
       ${visible ? "opacity-100 scale-100 " : "opacity-0 scale-95 pointer-events-none"}
@@ -20,13 +22,18 @@ export const MenuProductos: React.FC<MenuProductosProps> = ({
       </div>
 
       {/*Nombre Categoría*/}
-      <ul className="grid grid-cols-2 md:gap-x-14 gap-y-4 bg-[#fff] md:p-4 md:pl-6 md:mt-0
+      <ul className="grid grid-cols-2 md:gap-x-14 gap-y-4 rounded-sm bg-[#fff] md:p-4 md:pl-6 md:mt-0
       [@media(min-width:760px)_and_(max-width:974px)]:gap-x-8 pr-0">
-        {categories.map((category) =>(
-          <li key={category.id}> 
-            <a className="capitalize text-lg text-zinc-700 duration-200 hover:text-[#f0be4b]" href={category.link}>
+        {categories.map((category) => (
+          <li key={category._id}>
+            <Link
+              className="capitalize text-lg text-zinc-700 duration-200 hover:text-[#f0be4b]"
+              to={`/categories/${category._id}`}
+              state={{ category }}
+              onClick={onClose}
+            >
               {category.name}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

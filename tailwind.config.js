@@ -1,11 +1,13 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  theme: { 
+  theme: {
     extend: {
-      colors: {
-        
-      }
-    } },
+      fontFamily: {
+        bigshoulders: ['"Big Shoulders"', 'sans-serif'],
+        rubik: ['"Rubik"', 'sans-serif'],
+      },
+    }
+  },
   plugins: [],
 }
 

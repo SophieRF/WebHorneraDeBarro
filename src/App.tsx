@@ -1,9 +1,9 @@
 import './App.css'
-import { Home } from './screens/Home'
+import AppRouter from "../AppRouter.tsx";
 
 function App() {
   return(
-    <Home />
+    <AppRouter />
   )
 }
 

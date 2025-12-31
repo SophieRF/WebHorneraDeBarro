@@ -1,6 +1,7 @@
+import type { IProduct } from "./product";
+
 export interface ICategory {
-  id: string;
+  _id: string;
   name: string;
-  link: string;
-  order?: number;
+  products: IProduct[]
 }
