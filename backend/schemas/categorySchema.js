@@ -12,7 +12,17 @@ const categorySchema = new mongoose.Schema(
                 ref: "Product"
             }
         ],
+        image: {
+            type: String,
+            required: false
+        },
+        isFeatured: {
+            type: Boolean,
+            default: false,
+            required: false
+        }
+
     }, { timestamps: true }
 );
 
-export default mongoose.model("category", categorySchema);
+export default mongoose.model("Category", categorySchema);

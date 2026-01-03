@@ -89,6 +89,12 @@ class productController {
 
             let imagesData = productDB.images || [];
 
+            Object.keys(req.body).forEach(key => {
+                if (req.body[key] === "" || req.body[key] === undefined) {
+                    delete req.body[key];
+                }
+            });
+
             if (req.files && req.files.length > 0) {
                 const uploadPromises = req.files.map(file =>
                     uploadImageToCloudinary(file.buffer)
@@ -106,8 +112,8 @@ class productController {
 
             const productUpdated = {
                 ...req.body,
-                price: Number(req.body.price),
-                available: req.body.available === "true",
+                ...(req.body.price && { price: Number(req.body.price) }),
+                ...(req.body.available && { available: req.body.available === "true" }),
                 images: imagesData
             };
 

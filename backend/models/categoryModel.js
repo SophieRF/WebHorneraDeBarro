@@ -23,7 +23,9 @@ class CategoryModel {
         return await Category.findOneAndUpdate(
             { _id: new mongoose.Types.ObjectId(id) },
             { $set: category },
-            { new: true });
+            { new: true, runValidators: true }
+
+        );
     }
 
     //DELETE

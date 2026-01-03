@@ -1,25 +1,23 @@
 import { useEffect, useState } from "react";
 import { MenuProductos } from "./MenuProductos";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import type { ICategory } from "../../types/category";
 import { useCartStore } from "../../store/useCartStore";
+import { useCategoryStore } from "../../store/useCategoryStore";
+import { useProductStore } from "../../store/useProductStore";
 
 export const NavBar = () => {
 
   const [open, setOpen] = useState(false);
   const [showProducts, setShowProducts] = useState(false)
-  const [categories, setCategories] = useState<ICategory[]>([]);
 
-  useEffect(() => {
-    axios.get("http://localhost:5100/categories")
-      .then((res) => setCategories(res.data))
-      .catch((error) => console.error("Error al traer las categorías", error));
-
-  }, []);
-
+  const { categories, fetchCategories } = useCategoryStore();
+  const { fetchProducts } = useProductStore();
   const { getTotalProducts } = useCartStore();
 
+  useEffect(() => {
+    fetchCategories();
+    fetchProducts();
+  }, []);
 
   return (
     <nav className="sticky top-0 left-0 w-full h-20 bg-[#fff] shadow-md shadow-[#cfb7a3] z-[50]">
@@ -42,7 +40,7 @@ export const NavBar = () => {
           className="md:flex hidden items-center gap-8 font:[Poppins] ">
           <li>
             <Link
-              className=" uppercase"
+              className=" uppercase transition-all duration-300"
               to="/">
               Inicio
             </Link>
@@ -53,11 +51,11 @@ export const NavBar = () => {
             onMouseEnter={() => setShowProducts(true)}
             onMouseLeave={() => setShowProducts(false)}>
             <button
-              className="py-7 uppercase">
+              className="py-7 uppercase transition-all duration-300 ease-in-out">
 
               Productos
             </button>
-            <div>
+            <div className="flex justify-center">
               <MenuProductos
                 categories={categories}
                 visible={showProducts}
@@ -70,7 +68,7 @@ export const NavBar = () => {
           </li>
 
           <li className="px-3 text-left md:cursor-pointer">
-            <div className="py-7 uppercase">
+            <div className="py-7 uppercase transition-all duration-300 ease-in-out">
               Sobre mi
             </div>
           </li>

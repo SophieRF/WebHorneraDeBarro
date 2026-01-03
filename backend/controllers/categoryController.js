@@ -18,7 +18,7 @@ class categoryController {
     async getAll(req, res) {
         try {
             const data = await categoryModel.getAll();
-            res.status(201).json(data);
+            res.status(200).json(data);
 
         } catch (error) {
             res.status(500).send(error);
@@ -42,16 +42,6 @@ class categoryController {
             res.status(500).json({ message: "Error al traer la categoría" });
         }
     }
-
-
-    /*try {
-        const {id} = req.params;
-        const data = await categoryModel.getById(id).populate("products");
-        res.status(201).json(data);
-    } catch (error) {
-        res.status(500).send(error);
-    }*/
-
 
     //UPDATE
     async update(req, res) {

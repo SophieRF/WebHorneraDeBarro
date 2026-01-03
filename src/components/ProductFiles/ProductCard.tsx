@@ -5,8 +5,8 @@ import { useCartStore } from "../../store/useCartStore";
 
 interface ProductCardProps {
     product: IProduct;
-    addToCart: (product: IProduct) => void;
-    cart: ICart;
+    addToCart?: (product: IProduct) => void;
+    cart?: ICart;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart, cart }) => {
@@ -16,7 +16,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart, ca
 
     const hasImages = product.images && product.images.length > 0;
     const hasMultipleImages = product.images && product.images.length > 1;
-    const isInCart = cart.products.some(p => p._id === product._id);
+    const isInCart = cart?.products.some(p => p._id === product._id);
 
     const handlePrevImage = (e: React.MouseEvent) => {
         setCurrentImageIndex((prev) =>
@@ -34,7 +34,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart, ca
         <>
             <div
                 key={product._id}
-                className="border rounded-lg pb-2 shadow-md hover:shadow-neutral-400 duration-300 h-full flex flex-col"
+                className="group border rounded-lg h-[20rem] pb-2 shadow-md hover:shadow-neutral-400 duration-300 flex flex-col"
             >
                 <div className="relative group h-64">
                     {hasImages ? (
@@ -45,7 +45,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart, ca
                                         key={index}
                                         src={img.url}
                                         alt={`${product.name} - imagen ${index + 1}`}
-                                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out
+                                        className={`absolute rounded-t-lg inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out
                       ${index === currentImageIndex ? "opacity-100" : "opacity-0"}`}
                                     />
                                 ))}
@@ -111,24 +111,23 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart, ca
                     )}
                 </div>
 
-                <div className="px-4 pt-2 font-bigshoulders">
-                    <h3 className="font-semibold text-lg mb-2">
-                        {product.name}
-                    </h3>
+                <div className="flex flex-col px-4 pt-2 font-bigshoulders">
+                    <div>
+                        <h3 className="font-semibold text-lg mb-1">
+                            {product.name}
+                        </h3>
+                    </div>
 
-                    <p className="text-zinc-600 text-sm mb-3 line-clamp-2">
-                        {product.description}
-                    </p>
-                    <div className="flex flex-row justify-between pt-2">
-                        <p className="font-bold text-[#f0be4b] text-lg">
+                    <div className="flex flex-row justify-between items-center mt-auto">
+                        <p className="font-bold text-[#e4a921] text-lg">
                             ${product.price}
                         </p>
                         {/* Botón carrito */}
                         <button
                             onClick={
-                                isInCart 
-                                ? () => removeFromCart(product._id) 
-                                : () => addToCart(product)
+                                isInCart
+                                    ? () => removeFromCart(product._id)
+                                    : () => addToCart!(product)
                             }
                             disabled={!product.available}
                             className={`
