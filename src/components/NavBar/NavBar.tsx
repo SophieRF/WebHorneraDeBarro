@@ -20,7 +20,7 @@ export const NavBar = () => {
   }, []);
 
   return (
-    <nav className="sticky top-0 left-0 w-full h-20 bg-[#fff] shadow-md shadow-[#cfb7a3] z-[50]">
+    <nav className="sticky top-0 left-0 w-full h-20 bg-[#fff]  z-[50]">
       <div className="flex items-center font-medium justify-around">
         <div className="z-50 p-5 md:w-auto w-full flex justify-between">
           <Link
@@ -55,7 +55,7 @@ export const NavBar = () => {
 
               Productos
             </button>
-            <div className="flex justify-center">
+            <div className="flex justify-start md:justify-center ">
               <MenuProductos
                 categories={categories}
                 visible={showProducts}

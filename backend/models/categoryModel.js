@@ -10,13 +10,20 @@ class CategoryModel {
 
     //GET ALL
     async getAll() {
-        return await Category.find();
+        return await Category.find().populate({
+            path: "products",
+            select: "_id name price images available isFeatured"
+        });
     }
 
     //GET BY ID
     async getById(id) {
-        return await Category.findById(id).populate("products");
+        return await Category.findById(id).populate({
+            path: "products",
+            select: "_id name price images available isFeatured"
+        });
     }
+
 
     //UPDATE
     async update(id, category) {
@@ -25,7 +32,7 @@ class CategoryModel {
             { $set: category },
             { new: true, runValidators: true }
 
-        );
+        ).populate("products");
     }
 
     //DELETE

@@ -17,7 +17,6 @@ export const CategoryScreen = () => {
     fetchProducts();
   }, []);
 
-  // si es /categories/all → mostrar todos los productos
   if (categoryId === "all") {
     return (
       <div className="overflow-visible">

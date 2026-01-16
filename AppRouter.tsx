@@ -5,6 +5,8 @@ import { MainLayout } from "./src/layouts/MainLayout.tsx";
 import { CartScreen } from "./src/screens/CartScreen.tsx";
 import { AnimatePresence } from "framer-motion";
 import { TransitionedPage } from "./src/TransitionedPage.tsx";
+import { AdminLayout } from "./src/layouts/AdminLayout.tsx";
+import { Login } from "./src/screens/Login.tsx";
 
 export const AppRouter = () => {
 
@@ -13,11 +15,12 @@ export const AppRouter = () => {
     return (
         <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
-                <Route element={
-                    <TransitionedPage>
-                        <MainLayout />
-                    </TransitionedPage>
-                }>
+                <Route
+                    element={
+                        <TransitionedPage>
+                            <MainLayout />
+                        </TransitionedPage>
+                    }>
                     <Route
                         path="/"
                         element={
@@ -49,6 +52,22 @@ export const AppRouter = () => {
                             </TransitionedPage>
                         } />
                 </Route>
+
+                {/*Rutas Admin*/}
+                <Route
+                    element={<TransitionedPage>
+                        <AdminLayout />
+                    </TransitionedPage>}>
+
+                    <Route
+                        element={
+                            <TransitionedPage>
+                                <Login />
+                            </TransitionedPage>}
+                        path="/login" />
+
+                </Route>
+                
             </Routes>
         </AnimatePresence>
     )

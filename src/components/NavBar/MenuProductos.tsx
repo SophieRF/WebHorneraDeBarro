@@ -11,7 +11,7 @@ interface MenuProductosProps {
 export const MenuProductos: React.FC<MenuProductosProps> = ({ visible, onClose, categories }) => {
 
   return (
-    <div className={`flex justify-center transition-all duration-500 md:duration-300 items-center
+    <div className={`flex justify-start transition-all duration-500 md:duration-300 items-center
       ${visible ? "opacity-100 scale-100 " : "opacity-0 scale-95 pointer-events-none"}
       ${visible ? "max-h-[500px]" : "max-h-0 overflow-hidden"} 
       md:absolute md:overflow-visible md:max-h-none
@@ -25,7 +25,7 @@ export const MenuProductos: React.FC<MenuProductosProps> = ({ visible, onClose, 
       <ul className="rounded-sm bg-[#fff] md:p-8 md:mt-0
       [@media(min-width:760px)_and_(max-width:974px)]:gap-x-8 pr-0">
         <div className="flex flex-col">
-          <li >
+          <li className="hidden md:block">
               <Link
                 to="/categories/all"
                 onClick={onClose}
@@ -45,7 +45,7 @@ export const MenuProductos: React.FC<MenuProductosProps> = ({ visible, onClose, 
             {categories.map((category) => (
               <li key={category._id}>
                 <Link
-                  className="capitalize text-lg text-zinc-700 duration-200 hover:text-[#f0be4b]"
+                  className="capitalize text-lg text-zinc-800 duration-500 hover:text-[#f0be4b]"
                   to={`/categories/${category._id}`}
                   state={{ category }}
                   onClick={onClose}

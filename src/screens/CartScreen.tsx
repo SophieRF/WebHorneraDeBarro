@@ -47,7 +47,7 @@ export const CartScreen = () => {
             Carrito vacío
           </p>
           <Link
-            to={"/categories/6942a4133b9de7771025af77"}>
+            to={"/categories/all"}>
             <span className="material-symbols-outlined text-3xl hover:text-4xl hover:text-lime-700 transition-all duration-300">
               add_shopping_cart
             </span>

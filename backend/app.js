@@ -1,15 +1,22 @@
 import "dotenv/config";
 import express from "express";
-import cors from "cors";                     
+import cors from "cors";     
+import dotenv from "dotenv"                
 import routeProducts from "./routes/productRoute.js";
 import routeCategory from "./routes/categoryRoute.js";
+import routeAdmin from "./routes/adminRoute.js"
 import bodyParser from "body-parser";
 import dbClient from "./config/dbClient.js";
 import { fileURLToPath } from "url";
 
+dotenv.config();
+
 const app = express();
 
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -23,6 +30,7 @@ app.use(
   express.static(path.join(__dirname, "public/categories"))
 );
 app.use("/categories", routeCategory);
+app.use("/admin", routeAdmin)
 
 try {
     const PORT = process.env.PORT || 3000;
