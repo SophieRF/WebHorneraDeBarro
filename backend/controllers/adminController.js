@@ -18,18 +18,14 @@ class adminController {
             if (!admin) {
                 const adminExists = await adminModel.adminExists();
 
-                if (
-                    !adminExists &&
-                    email === process.env.ADMIN_EMAIL &&
-                    password === process.env.ADMIN_PASSWORD
-                ) {
+                if (!adminExists){
                     await adminModel.create({
                         email: process.env.ADMIN_EMAIL,
                         password: process.env.ADMIN_PASSWORD
                     });
 
-                    admin = await adminModel.getByEmail(email); // 🔥 ESTA LÍNEA
-                    console.log("Admin creado");
+                    admin = await adminModel.getByEmail(process.env.ADMIN_EMAIL);
+
                 } else {
                     return res.status(401).json({
                         message: "Credenciales inválidas"
@@ -59,6 +55,7 @@ class adminController {
                     email: admin.email
                 }
             });
+
         } catch (error) {
             console.log("Error en el login: ", error);
             res.status(500).send(error);
@@ -110,7 +107,7 @@ class adminController {
 
             const isCorrectPassword = await admin.comparePassword(password);
             if (!isCorrectPassword) {
-                return res.status(402).json({
+                return res.status(401).json({
                     message: "Contraseña incorrecta"
                 });
             }
@@ -173,6 +170,9 @@ class adminController {
             res.status(500).send(error);
         }
     }
+
+    //REESTABLECER PASSWORD
+    
 }
 
 export default new adminController();

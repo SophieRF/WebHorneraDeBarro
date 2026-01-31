@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken";
 
-export const verifyAdmin= (req, res, next) =>{
+export const verifyAdmin = (req, res, next) => {
     try {
-        const token = req.headers.autorization?.split(" ")[1];
+        const token = req.headers.authorization?.split(" ")[1];
 
-        if(!token) { 
+        if (!token) {
             return res.status(401).json({
                 success: false,
                 message: "No se encontró token de autenticación"

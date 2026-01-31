@@ -7,6 +7,10 @@ import { AnimatePresence } from "framer-motion";
 import { TransitionedPage } from "./src/TransitionedPage.tsx";
 import { AdminLayout } from "./src/layouts/AdminLayout.tsx";
 import { Login } from "./src/screens/Login.tsx";
+import { AdminScreen } from "./src/screens/AdminScreen.tsx";
+import { AdminProductsScreen } from "./src/screens/AdminProductsScreen.tsx";
+import { AdminCategoriesScreen } from "./src/screens/AdminCategoriesScreen.tsx";
+import { AdminRoute } from "./src/routes/AdminRoute.tsx";
 
 export const AppRouter = () => {
 
@@ -53,21 +57,46 @@ export const AppRouter = () => {
                         } />
                 </Route>
 
+                {/*Ruta login*/}
+                <Route
+                    element={
+                        <TransitionedPage>
+                            <Login />
+                        </TransitionedPage>}
+                    path="/login" />
+
                 {/*Rutas Admin*/}
                 <Route
-                    element={<TransitionedPage>
-                        <AdminLayout />
-                    </TransitionedPage>}>
-
+                    element={<AdminRoute />}>
                     <Route
                         element={
                             <TransitionedPage>
-                                <Login />
-                            </TransitionedPage>}
-                        path="/login" />
+                                <AdminLayout />
+                            </TransitionedPage>}>
 
+                        <Route
+                            element={
+                                <TransitionedPage>
+                                    <AdminScreen />
+                                </TransitionedPage>}
+                            path="/admin" />
+
+                        <Route
+                            element={
+                                <TransitionedPage>
+                                    <AdminProductsScreen />
+                                </TransitionedPage>}
+                            path="/admin/products" />
+
+                        <Route
+                            element={
+                                <TransitionedPage>
+                                    <AdminCategoriesScreen />
+                                </TransitionedPage>}
+                            path="/admin/categories" />
+                    </Route>
                 </Route>
-                
+
             </Routes>
         </AnimatePresence>
     )

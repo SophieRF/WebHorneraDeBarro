@@ -9,5 +9,6 @@ route.post("/login", adminController.login);
 route.get("/verificar", verifyAdmin, adminController.verify);
 route.put("/cambiar-email", verifyAdmin, adminController.updateEmail);
 route.put("/cambiar-password", verifyAdmin, adminController.updatePassword);
+// route.get("/restablecer", verifyAdmin, adminController.resetPassword);
 
 export default route;

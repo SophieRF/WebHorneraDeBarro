@@ -8,6 +8,7 @@ import routeAdmin from "./routes/adminRoute.js"
 import bodyParser from "body-parser";
 import dbClient from "./config/dbClient.js";
 import { fileURLToPath } from "url";
+import path from "path";
 
 dotenv.config();
 
@@ -24,7 +25,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/products", routeProducts);
-import path from "path";
 app.use(
   "/static/categories",
   express.static(path.join(__dirname, "public/categories"))
