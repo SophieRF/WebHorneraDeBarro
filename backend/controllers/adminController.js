@@ -1,8 +1,10 @@
 import adminModel from "../models/adminModel.js";
 import jwt from "jsonwebtoken";
+import Admin from "../schemas/adminSchema.js";
 
 class adminController {
     constructor() { }
+
     //LOGIN
     async login(req, res) {
         try {
@@ -14,37 +16,26 @@ class adminController {
                 });
             }
 
-            let admin = await adminModel.getByEmail(email);
+            const admin = await adminModel.getByEmail(email);
+
             if (!admin) {
-                const adminExists = await adminModel.adminExists();
-
-                if (!adminExists){
-                    await adminModel.create({
-                        email: process.env.ADMIN_EMAIL,
-                        password: process.env.ADMIN_PASSWORD
-                    });
-
-                    admin = await adminModel.getByEmail(process.env.ADMIN_EMAIL);
-
-                } else {
-                    return res.status(401).json({
-                        message: "Credenciales inválidas"
-                    });
-                }
+                return res.status(401).json({
+                    message: "Credenciales inválidas"
+                });
             }
 
             const isCorrectPassword = await admin.comparePassword(password);
+
             if (!isCorrectPassword) {
                 return res.status(401).json({
                     message: "Credenciales inválidas"
                 });
             }
 
-            //Crear Token
             const token = jwt.sign(
                 { id: admin._id, email: admin.email },
                 process.env.JWT_SECRET,
-                { expiresIn: '7d' }
+                { expiresIn: "7d" }
             );
 
             res.status(200).json({
@@ -57,8 +48,8 @@ class adminController {
             });
 
         } catch (error) {
-            console.log("Error en el login: ", error);
-            res.status(500).send(error);
+            console.log("Error en el login:", error);
+            res.status(500).json({ message: "Error interno del servidor" });
         }
     }
 
@@ -87,92 +78,80 @@ class adminController {
         }
     }
 
-    //UPDATE EMAIL
-    async updateEmail(req, res) {
+    //UPDATE ADMIN
+    async updateAdmin(req, res) {
         try {
-            const { newEmail, password } = req.body;
+            const { email, currentPassword, newPassword } = req.body;
+            const admin = await Admin.findById(req.adminId);
 
-            if (!newEmail || !password) {
-                return res.status(400).json({
-                    message: "Se requiere nuevo email y contraseña actual"
-                });
-            }
-
-            const admin = await adminModel.getByEmail(req.adminEmail);
             if (!admin) {
                 return res.status(404).json({
                     message: "Admin no encontrado"
                 });
             }
+            // Update email
+            if (email && email !== admin.email) {
 
-            const isCorrectPassword = await admin.comparePassword(password);
-            if (!isCorrectPassword) {
-                return res.status(401).json({
-                    message: "Contraseña incorrecta"
-                });
+                const emailExists = await Admin.findOne({ email });
+                if (emailExists) {
+                    return res.status(400).json({
+                        message: "Ese email ya está en uso"
+                    });
+                }
+
+                admin.email = email;
             }
 
-            const updatedAdmin = await adminModel.updateEmail(req.adminId, newEmail);
+            // Update password
+            if (newPassword) {
+
+                if (!currentPassword) {
+                    return res.status(400).json({
+                        message: "Debes ingresar la contraseña actual"
+                    });
+                }
+
+                const isPasswordCorrect = await admin.comparePassword(currentPassword);
+
+                if (!isPasswordCorrect) {
+                    return res.status(401).json({
+                        message: "Contraseña actual incorrecta"
+                    });
+                }
+
+                if (newPassword.length < 8) {
+                    return res.status(400).json({
+                        message: "La contraseña debe tener al menos 8 caracteres"
+                    });
+                }
+
+                admin.password = newPassword;
+            }
+            await admin.save();
+
+            // Update Token
+            const newToken = jwt.sign(
+                { id: admin._id, email: admin.email },
+                process.env.JWT_SECRET,
+                { expiresIn: "7d" }
+            );
             res.status(200).json({
-                message: "Email actualizado exitosamente",
+                message: "Perfil actualizado correctamente",
+                token: newToken,
                 admin: {
-                    id: updatedAdmin._id,
-                    email: updatedAdmin.email
+                    id: admin._id,
+                    email: admin.email
                 }
             });
-        } catch (error) {
-            console.error("Error al cambiar email: ", error);
 
+        } catch (error) {
+            console.error("Error actualizando perfil: ", error);
             res.status(500).json({
-                message: 'Error al cambiar email'
+                message: "Error al actualizar perfil"
             });
         }
     }
 
-    //UPDATE PASSWORD
-    async updatePassword(req, res) {
-        try {
-            const { currentPassword, newPassword } = req.body;
-
-            if (!currentPassword || !newPassword) {
-                return res.status(400).json({
-                    message: "Se requiere la contraseña actual y la nueva"
-                });
-            }
-
-            if (newPassword.length < 6) {
-                return res.status(400).json({
-                    message: "La contraseña debe tener al menos 6 caracteres"
-                });
-            }
-            const admin = await adminModel.getByEmail(req.adminEmail);
-
-            if (!admin) {
-                return res.status(404).json({
-                    message: "Admin no encontrado"
-                });
-            }
-
-            const isCorrectPassword = await admin.comparePassword(currentPassword);
-            if (!isCorrectPassword) {
-                return res.status(401).json({
-                    message: "Contraseña actual incorrecta"
-                });
-            }
-
-            await adminModel.updatePassword(req.adminId, newPassword);
-            res.status(200).json({
-                message: 'Contraseña actualizada con éxito'
-            });
-
-        } catch (error) {
-            console.error('Error al cambiar contraseña:', error);
-            res.status(500).send(error);
-        }
-    }
-
-    //REESTABLECER PASSWORD
-    
 }
 
 export default new adminController();

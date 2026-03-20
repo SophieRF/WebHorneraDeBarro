@@ -1,4 +1,4 @@
-import { useEffect, type FC } from "react"
+import { useEffect } from "react"
 import { useCategoryStore } from "../../store/useCategoryStore"
 import { CategoryCard } from "./CategoryCard";
 
@@ -12,7 +12,7 @@ export const CategoryList = () => {
     }, []);
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-10 pl-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-10 px-0">
 
             <div className="w-full h-full">
                 {featured[0] && (

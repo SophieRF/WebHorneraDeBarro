@@ -4,13 +4,16 @@ import { create } from 'zustand'
 
 interface ProductState {
     products: IProduct[];
+    product: IProduct | null;
     fetchProducts: () => Promise<void>;
     getAllProducts: () => IProduct[];
+    getProductById: (_id:string) => Promise<void>;
     getFeaturedProducts: () => IProduct[];
 }
 
 export const useProductStore = create<ProductState>((set, get) => ({
     products: [],
+    product: null,
 
     fetchProducts: async () => {
         try {
@@ -24,6 +27,15 @@ export const useProductStore = create<ProductState>((set, get) => ({
 
     getAllProducts: () => {
         return get().products
+    },
+
+    getProductById: async(_id:string) => {
+        try {
+            const res = await axios.get(`http://localhost:5100/products/${_id}`);
+            set({product: res.data});
+        } catch (error) {
+            console.error("Error al traer el producto: ", error);
+        }
     },
 
     getFeaturedProducts: () => {

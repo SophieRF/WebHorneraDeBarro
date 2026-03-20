@@ -9,7 +9,7 @@ interface FeaturedProductCardProps {
 export const FeaturedProductCard: FC<FeaturedProductCardProps> = ({ product }) => {
 
     const imageUrl = product.images?.[0]?.url ?? "/placeholder.png";
-
+    
     return (
         <Link
             to={`/products/${product._id}`}

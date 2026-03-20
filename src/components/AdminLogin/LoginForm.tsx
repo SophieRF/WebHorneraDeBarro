@@ -51,8 +51,9 @@ export const LoginForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="mt-8 flex flex-col gap-4 lg:gap-6 max-w-[500px] max-auto">
+      className="mt-8 flex flex-col gap-6 lg:gap-6 w-96 ">
       <div>
+        <p>Email</p>
         <input
           {...register("email", {
             required: "Email requerido",
@@ -69,7 +70,7 @@ export const LoginForm = () => {
               message: "Máximo 200 caracteres"
             },
           })}
-          className={`p-2 outline-2 rounded border focus:outline-primary w-full ${errors.email
+          className={`p-2 outline-2 rounded border focus:outline-primary w-full cursor-pointer ${errors.email
             ? "border-red-500 outline-red-500 focus:outline-red-500"
             : ""
             }`}
@@ -85,6 +86,7 @@ export const LoginForm = () => {
       </div>
 
       <div className="relative">
+        <p>Contraseña</p>
         <input
           {...register("password", {
             required: "Contraseña requerida",
@@ -97,7 +99,7 @@ export const LoginForm = () => {
               message: "Máximo 80 caracteres",
             },
           })}
-          className={`mb-2 p-2 outline-2 rounded border focus:outline-primary w-full ${errors.password
+          className={`mb-2 p-2 outline-2 rounded border focus:outline-primary w-full cursor-pointer ${errors.password
             ? "border-red-500 outline-red-500 focus:outline-red-500"
             : ""
             }`}
@@ -114,7 +116,7 @@ export const LoginForm = () => {
               : "Mostrar contraseña"
           }
           type="button"
-          className="cursor-pointer absolute right-4 top-[20px] transform -translate-y-1/3"
+          className="cursor-pointer absolute right-4 top-[20px] transform translate-y-3"
         >
           {showPassword
             ? <span className="material-symbols-outlined">
@@ -132,7 +134,7 @@ export const LoginForm = () => {
         )}
       </div>
       <button
-        className="btn"
+        className="btn bg-yellow-500 hover:bg-yellow-400 transition-all duration-300 w-2/3 h-12 mt-6 self-center rounded"
         type="submit">
         Ingresar
       </button>

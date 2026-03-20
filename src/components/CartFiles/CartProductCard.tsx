@@ -1,5 +1,6 @@
 import type { IProduct } from "../../types/product"
 import { useCartStore } from "../../store/useCartStore";
+import { Link } from "react-router";
 
 interface CartProductCardProps {
   product: IProduct;
@@ -12,7 +13,9 @@ export const CartProductCard: React.FC<CartProductCardProps> = ({ product }) => 
   const imageUrl = product.images?.[0]?.url ?? "/placeholder.png";
 
   return (
-    <div className="flex flex-col items-center">
+    <Link 
+      className="flex flex-col items-center" 
+      to={`/products/${product._id}`}>
       <div
         key={product._id}
         className="
@@ -59,6 +62,6 @@ export const CartProductCard: React.FC<CartProductCardProps> = ({ product }) => 
 
         </div>
       </div>
-    </div>
+    </Link>
   )
 }

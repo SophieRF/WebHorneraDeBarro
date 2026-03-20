@@ -11,6 +11,7 @@ import { AdminScreen } from "./src/screens/AdminScreen.tsx";
 import { AdminProductsScreen } from "./src/screens/AdminProductsScreen.tsx";
 import { AdminCategoriesScreen } from "./src/screens/AdminCategoriesScreen.tsx";
 import { AdminRoute } from "./src/routes/AdminRoute.tsx";
+import { ProductScreen } from "./src/screens/ProductScreen.tsx";
 
 export const AppRouter = () => {
 
@@ -46,13 +47,19 @@ export const AppRouter = () => {
                             <TransitionedPage>
                                 <CategoryScreen />
                             </TransitionedPage>
-                        }
-                    />
+                        } />
                     <Route
                         path="/cart"
                         element={
                             <TransitionedPage>
                                 <CartScreen />
+                            </TransitionedPage>
+                        } />
+                    <Route
+                        path="/products/:_id"
+                        element={
+                            <TransitionedPage>
+                                <ProductScreen />
                             </TransitionedPage>
                         } />
                 </Route>
