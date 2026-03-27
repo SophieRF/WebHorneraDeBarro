@@ -1,19 +1,28 @@
 import { useParams } from "react-router";
 import { useProductStore } from "../store/useProductStore";
 import { useEffect, useState } from "react";
+import { useCartStore } from "../store/useCartStore";
 
 export const ProductScreen = () => {
   const { _id } = useParams();
   const { product, getProductById } = useProductStore();
+  const { products, addToCart } = useCartStore();
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const isInCart = product
+    ? products.some((p) => p._id === product._id)
+    : false;
 
   useEffect(() => {
     if (_id) {
       getProductById(_id);
     }
-  }, [_id, getProductById]);
+  }, [_id]);
+  useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [product]);
 
+  if (!_id) return <p>ID inválido</p>;
   if (!product) return <p>Cargando...</p>;
 
   const hasImages = product.images?.length > 0;
@@ -141,6 +150,39 @@ export const ProductScreen = () => {
             ))}
           </div>
         )}
+      </div>
+      <div className="mx-10 sm:mx-20 mt-10">
+        <div className=" text-4xl">
+          {product.name}
+        </div>
+        <div className="text-3xl">
+          ${product.price}
+        </div>
+        <div className="text-2xl mt-2">
+          {product.description}
+        </div>
+
+        {/* Botón carrito */}
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            addToCart!(product);
+          }}
+          disabled={!product.available}
+          className={`flex items-center justify-center w-full h-10 rounded-md bg-neutral-900 my-6 transition-all duration-300 text-white
+              ${isInCart
+              ? "cursor-auto  bg-zinc-600"
+              : "cursor-pointer"
+            }`
+          }
+        >
+          Agregar al carrito
+          <span className="material-symbols-outlined text-base ml-2">
+            add
+          </span>
+
+        </button>
       </div>
     </div>
   );

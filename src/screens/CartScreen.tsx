@@ -1,10 +1,11 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { CartProductCard } from "../components/CartFiles/CartProductCard";
 import { useCartStore } from "../store/useCartStore";
 
 export const CartScreen = () => {
 
   const { products, getTotalPrice } = useCartStore();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -21,25 +22,44 @@ export const CartScreen = () => {
             )}
           </div>
           {
-            products.length > 0 && <div className="flex justify-center mt-6">
+            products.length > 0
+            && <div className="flex justify-center mt-10">
               <div
                 className="
-      w-8/12
-      sm:w-10/12
-      md:w-10/12
-      lg:w-8/12
-      flex flex-row justify-end gap-2
-    "
+                w-8/12
+                sm:w-9/12
+                md:w-9/12
+                lg:w-8/12
+                flex flex-row justify-end gap-2"
               >
-                <p className="font-bigshoulders text-3xl">
+                <p className="font-bigshoulders text-3xl ">
                   Total:
                 </p>
-                <p className="font-bigshoulders text-3xl text-amber-950">
+                <p className="font-bigshoulders text-3xl">
                   ${getTotalPrice()}
                 </p>
               </div>
             </div>
           }
+          <div className="flex flex-col items-center">
+            <Link
+              to={"/shop"}
+              className="
+                w-9/12
+                md:w-9/12
+                lg:w-8/12
+                h-10 
+                md:h-11 rounded-md bg-neutral-900 mt-10 mb-4 mx-14 flex items-center justify-center text-center text-white md:text-lg"
+            >
+              Iniciar compra
+            </Link>
+            <button
+              className="underline"
+              onClick={() => navigate("/categories/all")}
+            >
+              Seguir comprando
+            </button>
+          </div>
         </div>
         :
         <div className="flex flex-col items-center">

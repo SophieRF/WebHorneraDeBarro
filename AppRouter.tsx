@@ -12,6 +12,7 @@ import { AdminProductsScreen } from "./src/screens/AdminProductsScreen.tsx";
 import { AdminCategoriesScreen } from "./src/screens/AdminCategoriesScreen.tsx";
 import { AdminRoute } from "./src/routes/AdminRoute.tsx";
 import { ProductScreen } from "./src/screens/ProductScreen.tsx";
+import { ShopScreen } from "./src/screens/ShopScreen.tsx";
 
 export const AppRouter = () => {
 
@@ -70,7 +71,17 @@ export const AppRouter = () => {
                         <TransitionedPage>
                             <Login />
                         </TransitionedPage>}
-                    path="/login" />
+                    path="/login"
+                />
+
+                {/*Ruta compra*/}
+                <Route
+                    element={
+                        <TransitionedPage>
+                            <ShopScreen />
+                        </TransitionedPage>}
+                    path="/shop"
+                />
 
                 {/*Rutas Admin*/}
                 <Route
