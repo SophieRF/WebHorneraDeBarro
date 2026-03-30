@@ -11,7 +11,7 @@ export const CartScreen = () => {
     <>
       {products.length > 0
         ? <div className="pb-10 ">
-          <div className="text-center text-4xl font-rubik mb-8 mt-6 ">
+          <div className="text-center text-4xl font-rubik mb-8 mt-6 text-neutral-900">
             Mi Carrito
           </div>
           <div className="flex flex-col gap-4">
@@ -32,10 +32,10 @@ export const CartScreen = () => {
                 lg:w-8/12
                 flex flex-row justify-end gap-2"
               >
-                <p className="font-bigshoulders text-3xl ">
+                <p className="text-3xl">
                   Total:
                 </p>
-                <p className="font-bigshoulders text-3xl">
+                <p className="text-3xl">
                   ${getTotalPrice()}
                 </p>
               </div>

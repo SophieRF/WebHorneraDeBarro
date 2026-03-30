@@ -29,8 +29,8 @@ export const ProductScreen = () => {
   const hasMultipleImages = product.images?.length > 1;
 
   return (
-    <div>
-      <div className="hidden sm:flex sm:flex-row gap-3 sm:w-[410px] sm:h-[400px] mt-14 mx-auto">
+    <div className="md:flex justify-center ">
+      <div className="hidden sm:flex sm:flex-row gap-3 sm:w-[410px] sm:h-[400px] mt-14 mx-auto md:mx-12">
 
         {/* Imagenes a la izquierda */}
         {hasImages && hasMultipleImages && (
@@ -56,7 +56,7 @@ export const ProductScreen = () => {
         )}
 
         {/* Imagen principal */}
-        <div className="relative flex-1 overflow-hidden group">
+        <div className="relative flex-1 md:w-80 overflow-hidden group">
           {hasImages ? (
             <>
               {/* Imágenes */}
@@ -151,14 +151,16 @@ export const ProductScreen = () => {
           </div>
         )}
       </div>
-      <div className="mx-10 sm:mx-20 mt-10">
-        <div className=" text-4xl">
+
+      {/*Descripción del producto */}
+      <div className="flex flex-col gap-2 lg:gap-3 lg:max-w-[36rem] mx-10 md:mr-10 md:ml-0 mt-10 md:mt-12 ">
+        <div className="text-3xl lg:text-4xl">
           {product.name}
         </div>
-        <div className="text-3xl">
+        <div className="text-3xl lg:text-4xl font-semibold">
           ${product.price}
         </div>
-        <div className="text-2xl mt-2">
+        <div className=" mt-2 text-xl lg:text-2xl">
           {product.description}
         </div>
 

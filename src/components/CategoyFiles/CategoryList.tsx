@@ -12,7 +12,7 @@ export const CategoryList = () => {
     }, []);
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-10 px-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-10 px-0">
 
             <div className="w-full h-full">
                 {featured[0] && (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { MenuProductos } from "./MenuProductos";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCartStore } from "../../store/useCartStore";
 import { useCategoryStore } from "../../store/useCategoryStore";
 import { useProductStore } from "../../store/useProductStore";
@@ -13,6 +13,8 @@ export const NavBar = () => {
   const { categories, fetchCategories } = useCategoryStore();
   const { fetchProducts } = useProductStore();
   const { getTotalProducts } = useCartStore();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchCategories();
@@ -50,11 +52,15 @@ export const NavBar = () => {
             className="px-3 text-left md:cursor-pointer"
             onMouseEnter={() => setShowProducts(true)}
             onMouseLeave={() => setShowProducts(false)}>
-            <button
-              className="py-7 uppercase transition-all duration-300 ease-in-out">
-
-              Productos
-            </button>
+            <div className="flex items-center">
+              <button
+                className="py-7 uppercase transition-all duration-300 ease-in-out">
+                Productos
+              </button>
+              <span className="material-symbols-outlined">
+                keyboard_arrow_down
+              </span>
+            </div>
             <div className="flex justify-start md:justify-center ">
               <MenuProductos
                 categories={categories}
@@ -68,9 +74,11 @@ export const NavBar = () => {
           </li>
 
           <li className="px-3 text-left md:cursor-pointer">
-            <div className="py-7 uppercase transition-all duration-300 ease-in-out">
+            <button
+              className="py-7 uppercase transition-all duration-300 ease-in-out"
+              onClick={() => navigate("/about")}>
               Sobre mi
-            </div>
+            </button>
           </li>
         </ul>
 

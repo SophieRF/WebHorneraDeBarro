@@ -34,9 +34,9 @@ export const CartProductCard: React.FC<CartProductCardProps> = ({ product }) => 
           />
 
         </div>
-        <div className="px-4 py-2 font-bigshoulders flex flex-col justify-between flex-1 min-w-0">
+        <div className="px-4 py-2 font-normal flex flex-col justify-between flex-1 min-w-0">
           <div>
-            <h3 className="font-normal text-xl sm:text-2xl md:text-3xl mb-2">
+            <h3 className=" text-xl sm:text-2xl md:text-3xl mb-2 text-neutral-900">
               {product.name}
             </h3>
 
@@ -46,7 +46,7 @@ export const CartProductCard: React.FC<CartProductCardProps> = ({ product }) => 
           </div>
 
           <div className=" flex flex-row items-center justify-end mt-4 gap-2 lg:gap-4">
-            <p className="font-bold text-neutral-800 text-lg md:text-xl">
+            <p className="font-semibold text-neutral-900 text-xl md:text-xl">
               ${product.price}
             </p>
 

@@ -13,6 +13,8 @@ import { AdminCategoriesScreen } from "./src/screens/AdminCategoriesScreen.tsx";
 import { AdminRoute } from "./src/routes/AdminRoute.tsx";
 import { ProductScreen } from "./src/screens/ProductScreen.tsx";
 import { ShopScreen } from "./src/screens/ShopScreen.tsx";
+import { SimpleLayout } from "./src/layouts/SimpleLayout.tsx";
+import { AboutMe } from "./src/components/About/AboutMe.tsx";
 
 export const AppRouter = () => {
 
@@ -21,20 +23,23 @@ export const AppRouter = () => {
     return (
         <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
+
+                {/*Pantalla con NavBar y Footer*/}
                 <Route
                     element={
                         <TransitionedPage>
                             <MainLayout />
                         </TransitionedPage>
                     }>
+
                     <Route
                         path="/"
                         element={
                             <TransitionedPage>
                                 <Home />
                             </TransitionedPage>
-                        }
-                    />
+                        } />
+
                     <Route
                         path="/categories/:_id"
                         element={
@@ -42,6 +47,7 @@ export const AppRouter = () => {
                                 <CategoryScreen />
                             </TransitionedPage>
                         } />
+
                     <Route
                         path="/categories/all"
                         element={
@@ -49,13 +55,7 @@ export const AppRouter = () => {
                                 <CategoryScreen />
                             </TransitionedPage>
                         } />
-                    <Route
-                        path="/cart"
-                        element={
-                            <TransitionedPage>
-                                <CartScreen />
-                            </TransitionedPage>
-                        } />
+
                     <Route
                         path="/products/:_id"
                         element={
@@ -63,6 +63,33 @@ export const AppRouter = () => {
                                 <ProductScreen />
                             </TransitionedPage>
                         } />
+
+                    <Route
+                        path="/about"
+                        element={
+                            <TransitionedPage>
+                                <AboutMe />
+                            </TransitionedPage>
+                        }
+                    />
+                </Route>
+
+                {/*Pantalla con NavBar*/}
+                <Route
+                    element={
+                        <TransitionedPage>
+                            <SimpleLayout />
+                        </TransitionedPage>
+                    }
+                >
+                    <Route
+                        path="/cart"
+                        element={
+                            <TransitionedPage>
+                                <CartScreen />
+                            </TransitionedPage>
+                        }
+                    />
                 </Route>
 
                 {/*Ruta login*/}

@@ -38,15 +38,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart, ca
                     )}
                 </div>
 
-                <div className="flex flex-col px-4 pt-2 font-bigshoulders">
+                <div className="flex flex-col px-4 pt-2">
                     <div>
-                        <h3 className="font-semibold text-lg mb-1">
+                        <h3 className="text-[21px]">
                             {product.name}
                         </h3>
                     </div>
 
                     <div className="flex flex-row justify-between items-center mt-auto">
-                        <p className="font-bold text-[#e4a921] text-lg">
+                        <p className="text-[21px] font-semibold">
                             ${product.price}
                         </p>
                         {/* Botón carrito */}
