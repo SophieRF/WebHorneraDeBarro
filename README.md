@@ -49,4 +49,4 @@ El vendedor dispone de un **panel de administración privado** desde donde gesti
 
 ---
 
-*Desarrollado especialmente para Hornera de Barro — cerámica artesanal hecha a mano.*
+*Desarrollado por Sofia Ferraro especialmente para Hornera de Barro — cerámica artesanal hecha a mano.*
