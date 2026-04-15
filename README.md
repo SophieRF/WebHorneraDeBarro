@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+# Hornera de Barro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Catálogo digital con carrito de compras vía WhatsApp para un emprendimiento de cerámica artesanal.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Descripción
 
-## React Compiler
+**Hornera de Barro** es una aplicación web fullstack desarrollada de forma independiente con el stack MERN + TypeScript que funciona como **catálogo digital con carrito social**, donde los clientes pueden explorar productos, armar su pedido y enviarlo directamente al vendedor por WhatsApp.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+El vendedor dispone de un **panel de administración privado** desde donde gestiona el catálogo completo de productos.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Funcionalidades
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Para el cliente
+- Exploración de productos organizados por categorías
+- Barra de búsqueda
+- Vista detallada de cada producto con imagen, descripción y precio
+- Carrito de compras con suma total en tiempo real
+- Envío del pedido al vendedor por WhatsApp (con lista de productos, precios y total)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Para el administrador (vendedor)
+- Login privado con autenticación JWT
+- CRUD de productos
+- Carga de imágenes de productos con almacenamiento en Cloudinary
+- Panel de gestión protegido por ruta privada
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tecnologías utilizadas
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Frontend
+- React + TypeScript: UI y tipado estático
+- Tailwind CSS: Estilos y diseño responsivo              
+- React Router: Navegación y rutas protegidas            
+- Zustand: Manejo de estado global (carrito, auth)  
+- Axios: Comunicación con la API REST             
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Backend
+ Node.js + Express: Servidor y API REST                    
+ MongoDB + Mongoose: Base de datos y modelado de datos     
+ JWT: Autenticación del administrador          
+
+### Servicios externos
+ Cloudinary: Almacenamiento de imágenes   
+ WhatsApp API (WhatsApp Click-to-Chat):  Envío del carrito al vendedor
+
+---
+
+*Desarrollado especialmente para Hornera de Barro — cerámica artesanal hecha a mano.*
